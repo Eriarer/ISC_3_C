@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 
 using namespace std;
 
@@ -118,6 +119,20 @@ class Arbol {
             }
         }
     }
+    void AmplitudStack(Nodo *node) {  // lo debe de imrimir a la inversa
+        Nodo *aux;
+        if (node != NULL) {
+            stack<Nodo *> pila;
+            pila.push(node);
+            while (!pila.empty()) {
+                aux = pila.top();
+                pila.pop();
+                cout << aux->dato << " ";
+                if (aux->izq != NULL) pila.push(aux->izq);
+                if (aux->der != NULL) pila.push(aux->der);
+            }
+        }
+    }
 
    public:
     Arbol() {
@@ -132,6 +147,7 @@ class Arbol {
     void carga1() { carga1(raiz); };
     void carga2() { carga2(raiz); };
     void Amplitud() { Amplitud(raiz); };
+    void AmplitudStack() { AmplitudStack(raiz); };
 };
 
 int main() {
@@ -149,6 +165,9 @@ int main() {
          << "\nA Metodo EnOrden\n";
     a->enOrden();
     cout << endl
-         << "\nA Metodo Amplitud\n";
+         << "\nA Metodo Amplitud QUEUE\n";
     a->Amplitud();
+    cout << endl
+         << "\nA Metodo Amplitud STACK\n";
+    a->AmplitudStack();
 };
