@@ -6,12 +6,12 @@ using namespace std;
 void heapSort(int[], int);
 void printArray(int[], int);
 void heapify(int[], int, int);
-//this is a test
+// this is a test1
 int main() {
     int arr[] = {12, 11, 13, 5, 6, 7};
     int N = sizeof(arr) / sizeof(arr[0]);
 
-    heapSort(arr, N);// Llamada de función
+    heapSort(arr, N);  // Llamada de función
 
     cout << "El arreglo ordenado es: \n";
     printArray(arr, N);  // Llamando a la funcion imprimir, enviandole como parametro el arreglo y el tamaño
