@@ -120,7 +120,7 @@ class Arbol {
         }
     }
     void AmplitudStack(Nodo *node) {  // lo debe de imrimir a la inversa
-        Nodo *aux;
+        Nodo *aux;                    // debido a la pila
         if (node != NULL) {
             stack<Nodo *> pila;
             pila.push(node);
