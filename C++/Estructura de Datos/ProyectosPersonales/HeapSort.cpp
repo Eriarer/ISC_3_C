@@ -6,7 +6,7 @@ using namespace std;
 void heapSort(int[], int);
 void printArray(int[], int);
 void heapify(int[], int, int);
-// this is a test1
+// this is a test2
 int main() {
     int arr[] = {12, 11, 13, 5, 6, 7};
     int N = sizeof(arr) / sizeof(arr[0]);
