@@ -1,0 +1,7 @@
+.vscode/settings.json
+**/*.exe
+**/*.png
+**/*.docx
+**/*.pdf
+**/*.tmp
+**/*.rar
