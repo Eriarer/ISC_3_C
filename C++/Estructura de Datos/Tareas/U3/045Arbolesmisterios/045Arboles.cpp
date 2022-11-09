@@ -221,17 +221,17 @@ int main() {
          << "\tNodods interiores" << endl;
     a->NodosInternos();
     cout << endl
-         << "MISTERIO 1" << endl
+         << "MISTERIO 1 -- HOJAS" << endl
          << a->hojas() << endl;
     cout << endl
-         << "MISTERIO 2" << endl
+         << "MISTERIO 2 -- BUSCAR" << endl
          << "Dame el dato a buscar: ";
     cin >> dato;
     cout << (a->existe('C') ? "existe " : "no existe ") << dato << " en el arbol" << endl;
     cout << endl
-         << "\tMISTERIO 3" << endl
-         << "Hay un total de: " << a->Niveles() + 1 << " en el arbol";
+         << "\tMISTERIO 3 --  NIVELES" << endl
+         << "Hay un total de: " << a->Niveles() + 1 << " niveles en el arbol";
     cout << endl
-         << "\tMISTERIO 4" << endl
-         << "Existen un totlal de: " << a->nodos() << " en el arbol" << endl;
+         << "\tMISTERIO 4 -- NODOS" << endl
+         << "Existen un totlal de: " << a->nodos() << " nodos en el arbol" << endl;
 };
