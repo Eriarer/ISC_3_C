@@ -148,7 +148,7 @@ class Arbol {
         if (arbol == NULL)
             return;
         mostrar(arbol->der, n + 1);
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < 3 * n; i++)
             cout << " ";
         cout << arbol->dato << endl;
         mostrar(arbol->izq, n + 1);
@@ -177,30 +177,20 @@ int main() {
     cout << "\t<Abraham Melgoza de la Torre>" << endl;
     char dato;
     a->carga1();
-    cout << endl
-         << "\nA Metodo postOrden\n";
-    a->postOrden();
-    cout << endl
-         << "\nA Metodo preOrden\n";
-    a->preOrden();
-    cout << endl
-         << "\nA Metodo EnOrden\n";
-    a->enOrden();
-    cout << endl
-         << "\nA Metodo Amplitud QUEUE\n";
-    a->Amplitud();
-    cout << endl
-         << "\nA Metodo Amplitud STACK\n";
-    a->AmplitudStack();
-    cout << endl
-         << "Que dato quieres buscar: ";
-    cin >> dato;
-    cout << endl
-         << (a->busqueda(dato) ? "encontrado" : "no encontrado") << endl;
-    cout << endl
-         << "Que dato quieres buscar: ";
-    cin >> dato;
-    cout << endl
-         << (a->busqueda(dato) ? "encontrado" : "no encontrado") << endl;
     a->mostrar();
+    cout << endl
+         << "Que dato quieres buscar: ";
+    cin >> dato;
+    cout << endl
+         << (a->busqueda(dato) ? "encontrado" : "no encontrado") << endl;
+    cout << endl
+         << "Que dato quieres buscar: ";
+    cin >> dato;
+    cout << endl
+         << (a->busqueda(dato) ? "encontrado" : "no encontrado") << endl;
+    cout << endl
+         << "Que dato quieres buscar: ";
+    cin >> dato;
+    cout << endl
+         << (a->busqueda(dato) ? "encontrado" : "no encontrado") << endl;
 };
