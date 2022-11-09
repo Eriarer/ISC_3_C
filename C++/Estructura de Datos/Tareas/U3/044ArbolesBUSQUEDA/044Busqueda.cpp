@@ -133,15 +133,16 @@ class Arbol {
             }
         }
     }
-    bool busqueda(Nodo *node, char num) {
-        if (node == NULL)
-            return false;
-        if (node->dato < num)
-            return busqueda(node->izq, num);
-        else if (node->dato > num)
-            return busqueda(node->der, num);
-        else
+    bool busqueda(Nodo *node, char info) {  // Buscar un dato en el arbol
+        if (node == NULL)                   //     dentro del arbol de manera recursiva
+            return false;                   //     true = encontrado, false = no encontrado
+        if (node->dato == info)
             return true;
+        bool flag = existe(node->izq, info);
+        if (flag == true)
+            return true;
+        flag = existe(node->der, info);
+        return flag;
     }
     void mostrar(Nodo *arbol, int n) {
         if (arbol == NULL)

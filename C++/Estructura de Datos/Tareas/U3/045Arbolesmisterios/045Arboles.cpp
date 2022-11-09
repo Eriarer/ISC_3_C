@@ -203,7 +203,6 @@ class Arbol {
     void Amplitud() { Amplitud(raiz); };
     void AmplitudStack() { AmplitudStack(raiz); };
     void NodosInternos() { NodosInternos(raiz); };
-    bool busqueda(char num) { return busqueda(raiz, num); };
     void mostrar() { mostrar(raiz, 0); };
     int hojas() { return hojas(raiz); };
     bool existe(char info) { return existe(raiz, info); };
