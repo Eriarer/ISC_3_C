@@ -1,3 +1,5 @@
+#include <windows.h>
+
 #include <iostream>
 #include <queue>
 #include <stack>
@@ -80,19 +82,6 @@ class Arbol {
     }
     void carga1(Nodo *nodo) {
         nodo->dato = 'A';
-        nodo->izq = new Nodo('C');
-        nodo->der = new Nodo('B');
-        nodo->izq->izq = new Nodo('D');
-        nodo->izq->der = new Nodo('G');
-        nodo->der->izq = new Nodo('H');
-        nodo->der->izq->izq = new Nodo('I');
-        nodo->izq->izq->izq = new Nodo('F');
-        nodo->izq->der->izq = new Nodo('E');
-        nodo->izq->der->der = new Nodo('J');
-        cout << "\tDEFAULT 1" << endl;
-    };
-    void carga2(Nodo *nodo) {
-        nodo->dato = 'A';
         nodo->izq = new Nodo('B');
         nodo->der = new Nodo('C');
         nodo->izq->izq = new Nodo('D');
@@ -103,7 +92,11 @@ class Arbol {
         nodo->izq->izq->der = new Nodo('I');
         nodo->der->izq->izq = new Nodo('J');
         nodo->der->izq->der = new Nodo('K');
-        cout << "\tDEFAULT 2" << endl;
+        cout << "\tCARGANDO ARBOL" << endl;
+        for (int i = 4; i != 0; i--) {
+            cout << ".";
+            Sleep(250);
+        }
     };
     void Amplitud(Nodo *node) {
         Nodo *aux;
@@ -114,6 +107,21 @@ class Arbol {
                 aux = cola.front();
                 cola.pop();
                 cout << aux->dato << " ";
+                if (aux->izq != NULL) cola.push(aux->izq);
+                if (aux->der != NULL) cola.push(aux->der);
+            }
+        }
+    }
+    void NodosInternos(Nodo *node) {  // Funcion de nodos internos
+        Nodo *aux;
+        if (node != NULL) {
+            queue<Nodo *> cola;
+            cola.push(node);
+            while (!cola.empty()) {
+                aux = cola.front();
+                cola.pop();
+                if (aux != raiz || (aux->izq != NULL && aux->der != NULL))
+                    cout << aux->dato << " ";
                 if (aux->izq != NULL) cola.push(aux->izq);
                 if (aux->der != NULL) cola.push(aux->der);
             }
@@ -136,7 +144,7 @@ class Arbol {
     bool busqueda(Nodo *node, char num) {
         if (node == NULL)
             return false;
-        if (node->dato < num)
+        else if (node->dato < num)
             return busqueda(node->izq, num);
         else if (node->dato > num)
             return busqueda(node->der, num);
@@ -151,6 +159,33 @@ class Arbol {
             cout << " ";
         cout << arbol->dato << endl;
         mostrar(arbol->izq, n + 1);
+    }                            // MISTERIO 1
+    int misterio1(Nodo *node) {  // Cuenta la cantidad de ramas que existe
+        if (node == NULL)        //   en el arbol, 0 no hay arbol
+            return 0;            //   1 = 0 ramas, res tot ramas -1
+        else if (node->izq == NULL && node->der == NULL)
+            return 1;
+        else
+            return misterio1(node->izq) + misterio1(node->der);
+    }                                     // MISTERIO 2
+    bool existe(Nodo *node, char info) {  // Buscar un dato en el arbol
+        if (node == NULL)                 //     dentro del arbol de manera recursiva
+            return false;                 //     true = encontrado, false = no encontrado
+        if (node->dato == info)
+            return true;
+        bool flag = existe(node->izq, info);
+        if (flag == true)
+            return true;
+        flag = existe(node->der, info);
+        return flag;
+    }                          // MISTERIO 3
+    int Niveles(Nodo *node) {  // Cuenta los niveles del arbol
+        int der = (node->der == NULL ? 0 : 1 + Niveles(node->der));
+        int izq = (node->izq == NULL ? 0 : 1 + Niveles(node->izq));
+        return (der > izq) ? der : izq;
+    }                        // MISTERIO 4
+    int nodos(Nodo *node) {  // Cuenta la cantidad de nodos
+        return (node != NULL) ? 1 + nodos(node->izq) + nodos(node->der) : 0;
     }
 
    public:
@@ -164,42 +199,39 @@ class Arbol {
     void preOrden() { preOrden(raiz); };
     void enOrden() { enOrden(raiz); };
     void carga1() { carga1(raiz); };
-    void carga2() { carga2(raiz); };
     void Amplitud() { Amplitud(raiz); };
     void AmplitudStack() { AmplitudStack(raiz); };
-    void mostrar() { mostrar(raiz, 0); };
+    void NodosInternos() { NodosInternos(raiz); };
     bool busqueda(char num) { return busqueda(raiz, num); };
+    void mostrar() { mostrar(raiz, 0); };
+    int misterio1() { return misterio1(raiz); };
+    bool existe(char info) { return existe(raiz, info); };
+    int Niveles() { return Niveles(raiz); };
+    int nodos() { return nodos(raiz); };
 };
 
 int main() {
-    Arbol *a = new Arbol, *b = new Arbol;
+    Arbol *a = new Arbol;
     cout << "\t<Abraham Melgoza de la Torre>" << endl;
     char dato;
     a->carga1();
-    cout << endl
-         << "\nA Metodo postOrden\n";
-    a->postOrden();
-    cout << endl
-         << "\nA Metodo preOrden\n";
-    a->preOrden();
-    cout << endl
-         << "\nA Metodo EnOrden\n";
-    a->enOrden();
-    cout << endl
-         << "\nA Metodo Amplitud QUEUE\n";
-    a->Amplitud();
-    cout << endl
-         << "\nA Metodo Amplitud STACK\n";
-    a->AmplitudStack();
-    cout << endl
-         << "Que dato quieres buscar: ";
-    cin >> dato;
-    cout << endl
-         << (a->busqueda(dato) ? "encontrado" : "no encontrado") << endl;
-    cout << endl
-         << "Que dato quieres buscar: ";
-    cin >> dato;
-    cout << endl
-         << (a->busqueda(dato) ? "encontrado" : "no encontrado") << endl;
+    cout << endl;
     a->mostrar();
+    cout << endl
+         << "\tNodods interiores" << endl;
+    a->NodosInternos();
+    cout << endl
+         << "MISTERIO 1" << endl;
+    a->misterio1();
+    cout << endl
+         << "MISTERIO 2" << endl
+         << "Dame el dato a buscar: ";
+    cin >> dato;
+    cout << (a->existe('C') ? "existe " : "no existe ") << dato << " en el arbol" << endl;
+    cout << endl
+         << "\tMISTERIO 3" << endl
+         << "Hay un total de: " << a->Niveles() + 1 << " en el arbol";
+    cout << endl
+         << "\tMISTERIO 4" << endl
+         << "Existen un totlal de: " << a->nodos() << " en el arbol" << endl;
 };
