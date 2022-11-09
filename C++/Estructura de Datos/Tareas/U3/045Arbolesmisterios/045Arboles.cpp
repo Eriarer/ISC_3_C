@@ -92,7 +92,8 @@ class Arbol {
         nodo->izq->izq->der = new Nodo('I');
         nodo->der->izq->izq = new Nodo('J');
         nodo->der->izq->der = new Nodo('K');
-        cout << "\tCARGANDO ARBOL" << endl;
+        cout << "\tCARGANDO ARBOL";
+        Sleep(250);
         for (int i = 4; i != 0; i--) {
             cout << ".";
             Sleep(250);
@@ -159,14 +160,14 @@ class Arbol {
             cout << " ";
         cout << arbol->dato << endl;
         mostrar(arbol->izq, n + 1);
-    }                            // MISTERIO 1
-    int misterio1(Nodo *node) {  // Cuenta la cantidad de ramas que existe
-        if (node == NULL)        //   en el arbol, 0 no hay arbol
-            return 0;            //   1 = 0 ramas, res tot ramas -1
+    }                        // MISTERIO 1
+    int hojas(Nodo *node) {  // Cuenta la cantidad de hojas que existe
+        if (node == NULL)    //   en el arbol, 0 no hay arbol
+            return 0;        //   res tot hojas
         else if (node->izq == NULL && node->der == NULL)
             return 1;
         else
-            return misterio1(node->izq) + misterio1(node->der);
+            return hojas(node->izq) + hojas(node->der);
     }                                     // MISTERIO 2
     bool existe(Nodo *node, char info) {  // Buscar un dato en el arbol
         if (node == NULL)                 //     dentro del arbol de manera recursiva
@@ -204,7 +205,7 @@ class Arbol {
     void NodosInternos() { NodosInternos(raiz); };
     bool busqueda(char num) { return busqueda(raiz, num); };
     void mostrar() { mostrar(raiz, 0); };
-    int misterio1() { return misterio1(raiz); };
+    int hojas() { return hojas(raiz); };
     bool existe(char info) { return existe(raiz, info); };
     int Niveles() { return Niveles(raiz); };
     int nodos() { return nodos(raiz); };
@@ -221,8 +222,8 @@ int main() {
          << "\tNodods interiores" << endl;
     a->NodosInternos();
     cout << endl
-         << "MISTERIO 1" << endl;
-    a->misterio1();
+         << "MISTERIO 1" << endl
+         << a->hojas() << endl;
     cout << endl
          << "MISTERIO 2" << endl
          << "Dame el dato a buscar: ";
