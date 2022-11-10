@@ -184,7 +184,7 @@ CVector& CVector::operator=(const CVector& obj) {
     if (this != &obj) {
         this->n = obj.n;
         delete[] vec;
-        vec = new int[this->n];
+        vec = new int[obj.n];
         for (int i = 0; i < n; i++)
             vec[i] = obj.vec[i];
     }
