@@ -121,7 +121,7 @@ class Arbol {
             while (!cola.empty()) {
                 aux = cola.front();
                 cola.pop();
-                if (aux != raiz && (aux->izq != NULL || aux->der != NULL))
+                if (aux != raiz && (aux->izq != NULL && aux->der != NULL))
                     cout << aux->dato << " ";
                 if (aux->izq != NULL) cola.push(aux->izq);
                 if (aux->der != NULL) cola.push(aux->der);
