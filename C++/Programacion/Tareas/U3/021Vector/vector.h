@@ -3,42 +3,69 @@
 #include <iostream>
 
 using namespace std;
-
-void random() {
-    srand(time(NULL));
-}
-
 class CVector {
    private:
     int n;
     int* vec;
 
    public:
-    CVector(int = 1);
+    CVector();
+    CVector(int);
     CVector(const CVector&);
     ~CVector();
-    void captura();
-    void mostrar();
-    void sumar(const CVector&, const CVector&);
-    void ordenar();
+    void ordenar();  // SORT
+    void carga();
+    //*--------------[ + ]--------------*//
     CVector operator+(const CVector&);
     CVector operator+(int);
     friend CVector operator+(int, const CVector&);
-    CVector& operator=(const CVector&);
-    friend CVector operator+(int, const CVector&);
+    //*--------------[ - ]--------------*//
+    CVector operator-(const CVector&);
+    CVector operator-(int);
+    friend CVector operator-(int, const CVector&);
+    //*--------------[ * ]--------------*//
     CVector operator*(int);
-    friend CVector operator*(int, const CVector&);
     CVector operator*(const CVector&);
+    friend CVector operator*(int, const CVector&);
+    //*--------------[ = ]--------------*//
+    CVector& operator=(const CVector&);
+    CVector& operator=(float);
+    CVector& operator=(int);
+    //*----------[ UNITARIOS ]----------*//
+    void operator++();
+    void operator++(int);
+    void operator--();
+    void operator--(int);
+    //*-----------[ LOGICOS ]-----------*//
+    //*---------[ RELACIONALES ]--------*//
+    bool operator==(const CVector&);
+    bool operator!=(const CVector&);
+    bool operator<(const CVector&);
+    bool operator>(const CVector&);
+    bool operator<=(const CVector&);
+    bool operator>=(const CVector&);
+    //*=============[ INCERSION EXTRACCION ]=============*//
+    //*====================[ FLUJO ]=====================*//
+    friend istream& operator>>(istream&, CVector&);
+    friend ostream& operator<<(ostream&, CVector&);
 };
-
+//==========[IMPLEMENTACION]==========//
+CVector::CVector() {
+    n = 0;
+    vec = new int[n];
+    for (int i = 0; i < n; i++) {
+        vec[i] = 0;
+    }
+    srand(time(NULL));
+};
 CVector::CVector(int n) {
     this->n = n;
     vec = new int[n];
     for (int i = 0; i < n; i++) {
         vec[i] = 0;
     }
+    srand(time(NULL));
 };
-
 CVector::CVector(const CVector& copia) {
     n = copia.n;
     vec = new int[n];
@@ -46,40 +73,14 @@ CVector::CVector(const CVector& copia) {
         vec[i] = copia.vec[i];
     }
 };
-
 CVector::~CVector() {
     delete[] vec;
 };
-
-void CVector::captura() {
+void CVector::carga() {
     for (int i = 0; i < n; i++) {
-        // cout << "Dame el dato: ";
-        vec[i] = n - i;
+        vec[i] = rand() % 101;
     }
-};
-
-void CVector::mostrar() {
-    for (int i = 0; i < n; i++) {
-        cout << "[" << vec[i] << "] ";
-    }
-    cout << endl
-         << endl;
-    ;
-};
-
-void CVector::sumar(const CVector& a, const CVector& b) {
-    if (a.n == b.n) {
-        delete[] vec;
-        n = a.n;
-        vec = new int[n];
-        for (int i = 0; i < n; i++) {
-            vec[i] = a.vec[i] + b.vec[i];
-        }
-    } else {
-        cout << "No se pueden sumar";
-    }
-};
-
+}
 void CVector::ordenar() {
     int aux;
     int j = 0;
@@ -91,47 +92,64 @@ void CVector::ordenar() {
         vec[j] = aux;
     }
 };
-CVector CVector::operator+(const CVector& obj) {
+//============OPERADORES=============//
+//*==============[ + ]==============*//
+CVector CVector::operator+(int n) {  // suma con un ESCALAR
+    if (n == 0)
+        return *this;
+    CVector temp(this->n);
+    for (int i = 0; i < this->n; i++)
+        temp.vec[i] = this->vec[i] + n;
+    return temp;
+};
+CVector CVector::operator+(const CVector& obj) {  // suma de VECTORES
     if (this->n != obj.n) {
-        cout << "Vectores de diferentes tamanios, no se puede sumar" << endl;
-        return;
+        cout << "Vectores de diferentes tamanios no se puede sumar " << endl;
+        return *this;
     }
     CVector temp(this->n);
     for (int i = 0; i < this->n; i++)
         temp.vec[i] = this->vec[i] + obj.vec[i];
     return temp;
 };
-CVector CVector::operator+(int n) {
-    if (n == 0)
-        return;
-    CVector temp(this->n);
-    for (int i = 0; i < this->n; i++)
-        temp.vec[i] = this->vec[i] + n;
-    return temp;
-};
-CVector operator+(int n, const CVector& obj) {
-    if (n == 0)
+//*------------[ FRIEND ]------------*//
+CVector operator+(int n, const CVector& obj) {  // suma de ESCALAR
+    if (n == 0)                                 // con VECTOR
         return obj;
     CVector temp(obj.n);
     for (int i = 0; i < obj.n; i++)
-        temp.vec[i] = obj.vec[i] + n;
+        temp.vec[i] = temp.vec[i] + n;
+    return temp;
+}
+//*==============[ - ]==============*//
+CVector CVector::operator-(int n) {  // resta con un ESCALAR
+    if (n == 0)
+        return *this;
+    CVector temp(this->n);
+    for (int i = 0; i < this->n; i++)
+        temp.vec[i] = this->vec[i] - n;
     return temp;
 };
-CVector& CVector::operator=(const CVector& obj) {
-    if (this != &obj) {
-        this->n = obj.n;
-        delete[] vec;
-        vec = new int[this->n];
-        for (int i = 0; i < n; i++)
-            vec[i] = obj.vec[i];
+CVector CVector::operator-(const CVector& obj) {  // resta de VECTORES
+    if (this->n != obj.n) {
+        cout << "Vectores de diferentes tamanios no se puede sumar ";
+        return *this;
     }
-    return *this;
+    CVector temp(this->n);
+    for (int i = 0; i < this->n; i++)
+        temp.vec[i] = this->vec[i] - obj.vec[i];
+    return temp;
 };
-CVector operator+(int n, const CVector& obj) {
+//*------------[ FRIEND ]------------*//
+CVector operator-(int n, const CVector& obj) {  // resta de ESCALAR
+    if (n == 0)                                 // con un VECTOR
+        return obj;
+    CVector temp(obj.n);
     for (int i = 0; i < obj.n; i++)
-        obj.vec[i] = obj.vec[i] + n;
-    return obj;
+        temp.vec[i] = obj.vec[i] - n;
+    return temp;
 };
+//*==============[ * ]==============*//
 CVector CVector::operator*(int n) {
     if (n == 1)
         return;
@@ -154,4 +172,75 @@ CVector CVector::operator*(const CVector& obj) {
     for (int i = 0; i < this->n; i++)
         temp.vec[i] = this->vec[i] * obj.vec[i];
     return temp;
+}
+//*----------[ asignacion ]---------*//
+//*==============[ = ]==============*//
+CVector& CVector::operator=(const CVector& obj) {
+    if (this != &obj) {
+        this->n = obj.n;
+        delete[] vec;
+        vec = new int[this->n];
+        for (int i = 0; i < n; i++)
+            vec[i] = obj.vec[i];
+    }
+    return *this;
+};
+CVector& CVector::operator=(char* car) {
+    for (int i = 0; i < n; i++)
+        vec[i] = rand() % 101;
+    return *this;
+};
+//*==========[ UNITARIOS ]==========*//
+void CVector::operator++() {  // PREFIJO
+    for (int i = 0; i < n; i++)
+        ++vec[i];
+}
+void CVector::operator++(int) {  // POSFIJO
+    for (int i = 0; i < n; i++)
+        vec[i]++;
+}
+void CVector::operator--() {  // PREFIJO
+    for (int i = 0; i < n; i++)
+        --vec[i];
+}
+void CVector::operator--(int) {  // POSFIJO
+    for (int i = 0; i < n; i++)
+        vec[i]--;
+}
+//*===========[ LOGICOS ]===========*//
+//*=========[ RELACIONALES ]========*//
+bool CVector::operator==(const CVector& obj) {
+    if (n != obj.n)
+        return false;
+    for (int i = 0; i < n; i++)
+        if (vec[i] != obj.vec[i])
+            return false;
+    return true;
+}
+bool CVector::operator!=(const CVector& obj) {
+    return !(*this == obj);
+}
+bool CVector::operator<(const CVector& obj) {
+    return (n < obj.n) ? true : false;
+}
+bool CVector::operator>(const CVector& obj) {
+    return (n > obj.n) ? true : false;
+}
+bool CVector::operator<=(const CVector& obj) {
+    return (n <= obj.n) ? true : false;
+}
+bool CVector::operator>=(const CVector& obj) {
+    return (n >= obj.n) ? true : false;
+}
+//*=============[ INCERSION EXTRACCION ]=============*//
+//*====================[ FLUJO ]=====================*//
+istream& operator>>(istream& in, CVector& obj) {
+    for (int i = 0; i < obj.n; i++) {
+        cout << "Dato [ " << i + 1 << "]->";
+        in >> obj.vec[i];
+    }
+}
+ostream& operator<<(ostream& out, CVector& obj) {
+    for (int i = 0; i < obj.n; i++)
+        out << "[ " << obj.vec[i] << " ]";
 }
