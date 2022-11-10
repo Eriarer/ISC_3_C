@@ -15,6 +15,7 @@ class CVector {
     ~CVector();
     void ordenar();  // SORT
     void carga();
+    void carga(int, int);
     //*--------------[ + ]--------------*//
     CVector operator+(const CVector&);
     CVector operator+(int);
@@ -29,7 +30,6 @@ class CVector {
     friend CVector operator*(int, const CVector&);
     //*--------------[ = ]--------------*//
     CVector& operator=(const CVector&);
-    CVector& operator=(float);
     CVector& operator=(int);
     //*----------[ UNITARIOS ]----------*//
     void operator++();
@@ -56,7 +56,6 @@ CVector::CVector() {
     for (int i = 0; i < n; i++) {
         vec[i] = 0;
     }
-    srand(time(NULL));
 };
 CVector::CVector(int n) {
     this->n = n;
@@ -64,7 +63,6 @@ CVector::CVector(int n) {
     for (int i = 0; i < n; i++) {
         vec[i] = 0;
     }
-    srand(time(NULL));
 };
 CVector::CVector(const CVector& copia) {
     n = copia.n;
@@ -77,8 +75,15 @@ CVector::~CVector() {
     delete[] vec;
 };
 void CVector::carga() {
-    for (int i = 0; i < n; i++) {
+    srand(time(NULL));
+    for (int i = 0; i < this->n; i++) {
         vec[i] = rand() % 101;
+    }
+}
+void CVector::carga(int limsup, int liminf) {
+    srand(time(NULL));
+    for (int i = 0; i < this->n; i++) {
+        vec[i] = rand() % (limsup + 1) + liminf;
     }
 }
 void CVector::ordenar() {
@@ -152,7 +157,7 @@ CVector operator-(int n, const CVector& obj) {  // resta de ESCALAR
 //*==============[ * ]==============*//
 CVector CVector::operator*(int n) {
     if (n == 1)
-        return;
+        return *this;
     CVector temp(this->n);
     for (int i = 0; i < this->n; i++)
         temp.vec[i] = this->vec[i] + n;
@@ -166,7 +171,7 @@ CVector operator*(int n, const CVector& obj) {
 CVector CVector::operator*(const CVector& obj) {
     if (this->n != obj.n) {
         cout << "No se pueden sumar" << endl;
-        return;
+        return *this;
     }
     CVector temp(this->n);
     for (int i = 0; i < this->n; i++)
@@ -185,9 +190,9 @@ CVector& CVector::operator=(const CVector& obj) {
     }
     return *this;
 };
-CVector& CVector::operator=(char* car) {
+CVector& CVector::operator=(int a) {
     for (int i = 0; i < n; i++)
-        vec[i] = rand() % 101;
+        vec[i] = a;
     return *this;
 };
 //*==========[ UNITARIOS ]==========*//
@@ -239,8 +244,10 @@ istream& operator>>(istream& in, CVector& obj) {
         cout << "Dato [ " << i + 1 << "]->";
         in >> obj.vec[i];
     }
+    return in;
 }
 ostream& operator<<(ostream& out, CVector& obj) {
     for (int i = 0; i < obj.n; i++)
         out << "[ " << obj.vec[i] << " ]";
+    return out;
 }
