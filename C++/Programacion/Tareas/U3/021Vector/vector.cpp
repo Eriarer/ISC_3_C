@@ -14,4 +14,5 @@ int main() {
          << VecC << endl
          << "\tSUMA A + B\n"
          << VecT << endl;
+    cin >> VecA;
 };
