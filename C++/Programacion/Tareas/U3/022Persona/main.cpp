@@ -6,4 +6,4 @@ int main() {
     cout << "\t<YO>\n"
          << yo;
     return 0;
-}
+};
