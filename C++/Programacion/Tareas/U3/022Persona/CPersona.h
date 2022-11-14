@@ -10,6 +10,7 @@ class CPersona {
     int edad;
 
    public:
+    //=============CONSTRUCTOR=============//
     CPersona() {
         this->nombre = "";
         this->edad = 0;
@@ -22,10 +23,15 @@ class CPersona {
         this->nombre = obj.nombre;
         this->edad = obj.edad;
     };
+    //=============GET-SET=============//
     inline string getNombre() { return this->nombre; };
     inline int getEdad() { return this->edad; };
     inline void setNombre(string nombre) { this->nombre = nombre; };
     inline void setEdad(int edad) { this->edad = edad; };
+    //=============FUNCIONES=============//
+    virtual void mostrar() {
+        cout << "Nombre: " << this->nombre << "\nEdad: " << this->edad;
+    };
     friend ostream &operator<<(ostream &out, CPersona &obj) {
         out << "Nombre: " << obj.nombre << "\nEdad: " << obj.edad;
         return out;
