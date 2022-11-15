@@ -80,9 +80,9 @@ class Grafo {
                     cout << "Insertar de nuevo la Columna\nGrafos# ";
             } while (j > col);
             if (selec == 's' || selec == 'S')
-                addDirigido(i - 1, j - 1);
+                addDirigido(i - 1, j - 1);  //=== CAMBIO ===//
             else
-                addNoDirigido(i - 1, j - 1);
+                addNoDirigido(i - 1, j - 1);  //=== CAMBIO ===//
             while (!flag) {
                 cout << "Deseas insertar mas vercices? S/N\nGrafos# ";
                 fflush(stdin);
@@ -99,10 +99,10 @@ class Grafo {
     void imprimir() {
         cout << "    ";
         for (int k = 0; k < ren; k++)
-            cout << "  " << (char)(k + 65) << "  ";
+            cout << "  " << (char)(k + 65) << "  ";  //=== CAMBIO ===//
         cout << endl;
         for (int i = 0; i < ren; i++) {
-            cout << " " << (char)(i + 65) << ((i < 10) ? "  " : " ");
+            cout << " " << (char)(i + 65) << ((i < 10) ? "  " : " ");  //=== CAMBIO ===//
             for (int j = 0; j < col; j++)
                 cout << "[ " << matriz[i][j] << " ]";
             cout << endl;
