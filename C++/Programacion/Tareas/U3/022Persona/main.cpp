@@ -1,20 +1,17 @@
 #include "CEstudiante.h"
-
-int main() {
-    CPersona yo("Eriarer", 20);
-    CEstudiante yoE("UAA", 8.7, yo);
-    yoE.mostrar();
-    cout << endl;
-    return 0;
-};
-/*
-#include "CTrabajador"
+#include "CPersona.h"
+#include "CTrabajador.h"
 
 int main() {
     CPersona yo("Eriarer", 20);
     CTrabajador yoT("Twitch", 500, yo);
+    CEstudiante yoE("UAA", 8.7, yo);
+    cout << yo << endl;
     yoE.mostrar();
     cout << endl;
+    yoT.mostrar();
+    cout << endl
+         << yo << endl
+         << yoT;
     return 0;
 };
-*/

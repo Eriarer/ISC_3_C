@@ -1,5 +1,4 @@
 #include "CPersona.h"
-
 class CTrabajador : protected CPersona {
    protected:
     float salario;
@@ -27,6 +26,11 @@ class CTrabajador : protected CPersona {
     inline string getEmpresa() { return this->empresa; };
     inline float getSalario() { return this->salario; };
     void mostrar() override;
+    friend ostream &operator<<(ostream &out, const CTrabajador &obj) {
+        out << "Empresa: '" << obj.empresa << "' " << endl
+            << "Salario $" << obj.salario;
+        return out;
+    }
 };
 
 void CTrabajador::mostrar() {
