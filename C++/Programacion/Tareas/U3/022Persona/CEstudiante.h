@@ -1,4 +1,3 @@
-#include "CPersona.h"
 
 class CEstudiante : protected CPersona {
    protected:

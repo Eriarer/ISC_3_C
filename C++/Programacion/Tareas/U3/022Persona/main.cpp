@@ -1,6 +1,7 @@
-#include "CEstudiante.h"
 #include "CPersona.h"
-#include "CTrabajador.h"
+// libreria hredada
+#include "CEstudiante.h"
+#include "CTrabajador.h" /
 
 int main() {
     CPersona yo("Eriarer", 20);

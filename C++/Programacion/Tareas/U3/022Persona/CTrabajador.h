@@ -1,4 +1,3 @@
-#include "CPersona.h"
 class CTrabajador : protected CPersona {
    protected:
     float salario;
