@@ -1,5 +1,7 @@
-// Programa en C++ para la implementación de Heap Sort
+ // Programa en C++ para la implementación de Heap Sort
 #include <iostream>
+#include <time.h>
+#define TAM 100000
 using namespace std;
 
 // Prototipos de funciones
@@ -8,7 +10,14 @@ void printArray(int[], int);
 void heapify(int[], int, int);
 
 int main() {
-    int arr[] = {12, 11, 13, 5, 6, 7, 15, 86, 13, 1, 16};
+    srand(time(NULL));
+    system("cls");
+    int arr[] = {12, 11, 13, 5, 6, 7, 15, 86, 13};
+    // int arr[TAM];
+    // for(long long i=0; i<TAM-1; i++){
+    //     arr[i] = rand()%1000 +1;
+    // }
+    // cout << "Empezo!" << endl;
     int N = sizeof(arr) / sizeof(arr[0]);
 
     // Llamada de función
@@ -17,15 +26,16 @@ int main() {
     cout << "El arreglo ordenado es: \n";
     printArray(arr, N);  // Llamando a la funcion imprimir, enviandole como parametro el arreglo y el tamaño
 
+    // cout << "Termino!" << endl;
     return 0;
 }  // Fin del main
 
 void heapify(int arr[], int N, int i) {  // n es el tamaño del heap
     int largest = i;                     // Inicializar largest como raíz
 
-    int l = 2 * i + 1;  // Izquierda = 2*i + 1
+    int l = 2 * i + 1;  // Izquierda = 2*i 
 
-    int r = 2 * i + 2;  // Derecha = 2*i + 2
+    int r = 2 * i + 2;  // Derecha = 2*i + 1
 
     if (l < N && arr[l] > arr[largest])  // Si el hijo izquierdo es más grande que la raíz
         largest = l;
